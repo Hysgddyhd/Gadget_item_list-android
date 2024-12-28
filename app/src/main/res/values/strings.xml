@@ -13,6 +13,15 @@
     <string name="dog_description_8">Sunbathing</string>
     <string name="dog_description_9">Sleeping in dangerous places</string>
     <string name="about">About:</string>
-    <string name="item_price">%d RM</string>
+    <string name="item_price">%1$d RM</string>
     <string name="expand_button_content_description">See more or less information about a dog.</string>
+    <string name="in_stock">in stock</string>
+    <string name="back_button">Back</string>
+    <string name="item_entry_title">Add Item</string>
+    <string name="item_name_req">Item Name*</string>
+    <string name="item_price_req">Item Pricce*</string>
+    <string name="quantity_req">Item Quantity*</string>
+    <string name="required_fields">*required fields</string>
+    <string name="save_action">Save</string>
+    <string name="description_req">Item detail</string>
 </resources>
