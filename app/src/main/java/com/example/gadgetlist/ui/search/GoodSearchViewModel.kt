@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.stateIn
 
 class GoodSearchViewModel(private val goodsRepository: GoodsRepository) : ViewModel() {
 
-    private val input: String = checkNotNull(savedStateHandle[ItemEditDestination.itemIdArg])
+ //   private val input: String = checkNotNull(savedStateHandle[ItemEditDestination.itemIdArg])
 
     val searchUiState: StateFlow<SearchUiState> = goodsRepository.getAllItemsStream().map { SearchUiState(itemList = it) }
         .stateIn(
