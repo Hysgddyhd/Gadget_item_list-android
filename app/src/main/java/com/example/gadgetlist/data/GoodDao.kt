@@ -35,4 +35,9 @@ interface GoodDao {
             "or `desc` like :name " +
             " order by id")
     fun getGoodByName(name: String) : Flow<List<Good>>
+
+    @Query("Select * from goods " +
+            "where id = :id "
+            )
+    fun getGoodById(id:Int) : Flow<Good>
 }

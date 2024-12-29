@@ -1,23 +1,38 @@
 package com.example.gadgetlist.ui.item
 
+
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
@@ -124,6 +139,7 @@ fun GoodInputForm(
             enabled = enabled,
             singleLine = true
         )
+       // ListItem()
         OutlinedTextField(
             value = goodDetails.price,
             onValueChange = { onValueChange(goodDetails.copy(price = it)) },
@@ -175,6 +191,24 @@ fun GoodInputForm(
     }
 }
 
+@Composable
+fun MenuSample() {
+    var expanded by remember { mutableStateOf(false) }
+
+    Box(modifier = Modifier.fillMaxSize().wrapContentSize(Alignment.TopStart)) {
+        IconButton(onClick = { expanded = true }) {
+            Icon(Icons.Default.MoreVert, contentDescription = "Localized description")
+        }
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            DropdownMenuItem(onClick = { /* Handle refresh! */ },text={ Text("Refresh") })
+            DropdownMenuItem(onClick = { /* Handle settings! */ } ,text={ Text("Settings") })
+            DropdownMenuItem(onClick = { /* Handle send feedback! */ },text= { Text("Send Feedback") })
+        }
+    }
+
+}
+
+
 @Preview(showBackground = true)
 @Composable
 private fun ItemEntryScreenPreview() {
@@ -186,3 +220,14 @@ private fun ItemEntryScreenPreview() {
         ), onItemValueChange = {}, onSaveClick = {})
     }
 }
+@Preview(showBackground = true)
+@Composable
+private fun MenuSamplePreview() {
+    GadgetListTheme() {
+        MenuSample()
+    }
+}
+
+
+
+

@@ -3,11 +3,15 @@ package com.example.gadgetlist.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.gadgetlist.ui.search.SearchResult
 import com.example.gadgetlist.ui.home.HomeScreen
+import com.example.gadgetlist.ui.item.GoodEditDestination
+import com.example.gadgetlist.ui.item.GoodEditScreen
 import com.example.gadgetlist.ui.item.GoodEntryScreen
 
 enum class ShopScreen {
@@ -34,8 +38,7 @@ fun InventoryNavHost(
                     navController.navigate(ShopScreen.addIten.name)
                 },
                 navigateToItemUpdate = {
-                    // navController.navigate("${ItemDetailsDestination.route}/${it}")
-                },
+                    navController.navigate("${GoodEditDestination.route}/${it}")                },
                 navigateToSearchResult = {
                     navController.navigate(ShopScreen.search.name)
                 },
@@ -46,7 +49,8 @@ fun InventoryNavHost(
             SearchResult(
                 navigateToItemEntry = {},
                 modifier = modifier,
-                navigateToItemUpdate = {},
+                navigateToItemUpdate = {
+                },
                 onNavigateUp = {navController.navigateUp()}
 
             )
@@ -58,6 +62,15 @@ fun InventoryNavHost(
                     canNavigateBack = navController.previousBackStackEntry != null,
 
                 )
+        }
+        composable(
+            route = GoodEditDestination.routeWithArgs,
+            arguments = listOf(navArgument(GoodEditDestination.itemIdArg) {
+                type = NavType.IntType
+            })
+        ) {
+            GoodEditScreen(navigateBack = { navController.popBackStack() },
+                onNavigateUp = { navController.navigateUp() })
         }
 
         composable(route = ShopScreen.profile.name){}

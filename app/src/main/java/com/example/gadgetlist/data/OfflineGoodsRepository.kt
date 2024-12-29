@@ -26,6 +26,8 @@ class OfflineGoodsRepository(private val goodDao: GoodDao): GoodsRepository {
 
     override fun getGoodByName(name: String): Flow<List<Good>> =goodDao.getGoodByName(name)
 
+    override fun getGoodById(id: Int): Flow<Good> = goodDao.getGoodById(id)
+
     override fun getGoodByCate(category: String): Flow<List<Good>> =goodDao.getGoodByCate(category)
 
     override fun getSample(): Flow<List<Good>> {

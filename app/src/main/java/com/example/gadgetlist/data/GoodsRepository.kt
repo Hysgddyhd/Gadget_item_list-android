@@ -22,6 +22,8 @@ interface GoodsRepository {
      * */
     fun getGoodByCate(category: String) : Flow<List<Good>>
 
+    fun getGoodById(od:Int) : Flow<Good>
+
     //return sample data
     fun getSample(): Flow<List<Good>>
     /**

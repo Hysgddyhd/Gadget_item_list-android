@@ -79,7 +79,7 @@ import com.example.gadgetlist.ui.theme.GadgetListTheme
 @Composable
 fun HomeScreen(
     navigateToItemEntry: () -> Unit,
-    navigateToItemUpdate: () -> Unit,
+    navigateToItemUpdate: (Int) -> Unit,
     navigateToSearchResult: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
@@ -97,15 +97,10 @@ fun HomeScreen(
                 ,
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
-
-
         ) {
 
             TopRow(
-                        modifier = Modifier
-
-
-
+                modifier = Modifier
                     )
             Spacer(Modifier.height(24.dp))
             //Title
@@ -117,11 +112,7 @@ fun HomeScreen(
             //searchbar
             itemSearchBar(
                 onClickAction =navigateToSearchResult,
-                onValueChange = {
-                       input=it
-
-                },
-
+                onValueChange = { input=it  },
                 input = input
             )
             //recommendation
@@ -130,7 +121,6 @@ fun HomeScreen(
                     fontSize = 18.sp,
                     modifier = Modifier
                         .align(Alignment.Start)
-
                 )
             //
 
@@ -156,7 +146,7 @@ fun HomeScreen(
             ) { innerPadding ->
                 GadgetList(
                     itemList = homeUiState.itemList,
-                    onItemClick = {},
+                    onItemClick = navigateToItemUpdate,
                     contentPadding = innerPadding,
                     modifier = modifier
                 )
