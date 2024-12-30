@@ -1,6 +1,7 @@
 package com.example.gadgetlist.ui
 
 
+import android.icu.util.Currency
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -39,6 +41,11 @@ import com.example.gadgetlist.R
 import com.example.gadgetlist.data.Good
 import com.example.gadgetlist.ui.theme.GadgetListTheme
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.ui.text.input.KeyboardType
+import java.util.Locale
+import com.example.gadgetlist.ui.item.GoodDetails
 
 @Composable
 fun GadgetApp(
@@ -79,6 +86,69 @@ fun GadgetList(
     }
 }
 
+@Composable
+fun GoodDetailList(
+    goodDetails:GoodDetails,
+    enabled:Boolean,
+    onValueChange:(GoodDetails) -> Unit = {}
+){
+    OutlinedTextField(
+            value = goodDetails.name,
+            onValueChange = { onValueChange(goodDetails.copy(name = it)) },
+            label = { Text(stringResource(R.string.item_name_req)) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            ),
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
+       // ListItem()
+        OutlinedTextField(
+            value = goodDetails.price,
+            onValueChange = { onValueChange(goodDetails.copy(price = it)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+            label = { Text(stringResource(R.string.item_price_req)) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            ),
+            leadingIcon = { Text(Currency.getInstance(Locale.getDefault()).symbol) },
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
+        OutlinedTextField(
+            value = goodDetails.quantity,
+            onValueChange = { onValueChange(goodDetails.copy(quantity = it)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            label = { Text(stringResource(R.string.quantity_req)) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            ),
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+            singleLine = true
+        )
+        OutlinedTextField(
+            value = goodDetails.description,
+            onValueChange = { onValueChange(goodDetails.copy(description = it)) },
+            label = { Text(stringResource(R.string.description_req)) },
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            ),
+            modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
+
+        )
+}
 @Composable
 fun GoodItem(
     good: Good,

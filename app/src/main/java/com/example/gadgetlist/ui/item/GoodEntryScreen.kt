@@ -43,6 +43,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gadgetlist.R
 import com.example.gadgetlist.ui.AppViewModelProvider
 import com.example.gadgetlist.ui.GadgetTopAppBar
+import com.example.gadgetlist.ui.GoodDetailList
 import com.example.gadgetlist.ui.theme.GadgetListTheme
 import kotlinx.coroutines.launch
 import java.util.Currency
@@ -140,47 +141,10 @@ fun GoodInputForm(
             singleLine = true
         )
        // ListItem()
-        OutlinedTextField(
-            value = goodDetails.price,
-            onValueChange = { onValueChange(goodDetails.copy(price = it)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-            label = { Text(stringResource(R.string.item_price_req)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
-            leadingIcon = { Text(Currency.getInstance(Locale.getDefault()).symbol) },
-            modifier = Modifier.fillMaxWidth(),
+        GoodDetailList(
+            goodDetails = goodDetails,
             enabled = enabled,
-            singleLine = true
-        )
-        OutlinedTextField(
-            value = goodDetails.quantity,
-            onValueChange = { onValueChange(goodDetails.copy(quantity = it)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            label = { Text(stringResource(R.string.quantity_req)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
-        OutlinedTextField(
-            value = goodDetails.description,
-            onValueChange = { onValueChange(goodDetails.copy(description = it)) },
-            label = { Text(stringResource(R.string.description_req)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-
+            onValueChange = onValueChange
         )
         if (enabled) {
             Text(

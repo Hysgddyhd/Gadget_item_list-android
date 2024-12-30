@@ -46,6 +46,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FloatingActionButton
@@ -176,11 +177,14 @@ fun itemSearchBar(
       OutlinedTextField(
             onValueChange =  onValueChange ,
             textStyle = TextStyle(
-                fontSize = 18.sp
+                fontSize = 18.sp,
+
             ),
             singleLine = true,
             value = input,
           enabled = true,
+          modifier  =Modifier.
+                height(48.dp),
             placeholder = {
              Text("Input item name,",
                  fontSize = 12.sp

@@ -1,5 +1,6 @@
 package com.example.gadgetlist.data
 
+import android.content.res.Resources
 import androidx.annotation.DrawableRes
 import androidx.annotation.NonNull
 import androidx.annotation.StringRes
@@ -19,7 +20,7 @@ data class Good(
     @ColumnInfo(name = "desc")
     val description:String,
     @ColumnInfo(name = "image")
-    val imageResourceId: Int = 2130968589,
+    val imageResourceId: Int = Resources.getSystem().getIdentifier("no_photo", "drawable", "android")
 )
 
 val sample : List<Good> = listOf(

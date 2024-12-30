@@ -31,4 +31,6 @@
     <string name="delete_question">Are you sure you want to delete?</string>
     <string name="no">No</string>
     <string name="yes">Yes</string>
+    <string name="sell">Sell\n</string>
+    <string name="item_edit_title">eedit item</string>
 </resources>

@@ -9,6 +9,7 @@ import com.example.gadgetlist.GadgetListApplication
 import com.example.gadgetlist.ui.home.HomeViewModel
 import com.example.gadgetlist.ui.item.GoodEditViewModel
 import com.example.gadgetlist.ui.item.GoodEntryViewModel
+import com.example.gadgetlist.ui.item.GoodTradeViewModel
 import com.example.gadgetlist.ui.search.GoodSearchViewModel
 
 object AppViewModelProvider {
@@ -37,6 +38,13 @@ object AppViewModelProvider {
         //initial edit viewmodel
         initializer {
             GoodEditViewModel(
+                this.createSavedStateHandle(),
+                inventoryApplication().container.goodsRepository
+            )
+        }
+        //initisal GoodTradeViewModel
+        initializer {
+            GoodTradeViewModel(
                 this.createSavedStateHandle(),
                 inventoryApplication().container.goodsRepository
             )
