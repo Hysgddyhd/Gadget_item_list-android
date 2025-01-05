@@ -69,7 +69,7 @@ fun GoodEditScreen (
             onUpdateClick = {
                 coroutine.launch {
                     viewModel.updateItem()
-                    navigateBack()
+                    onNavigateUp()
                 }
             },
             onDelete = {

@@ -127,19 +127,6 @@ fun GoodInputForm(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
-        OutlinedTextField(
-            value = goodDetails.name,
-            onValueChange = { onValueChange(goodDetails.copy(name = it)) },
-            label = { Text(stringResource(R.string.item_name_req)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
        // ListItem()
         GoodDetailList(
             goodDetails = goodDetails,

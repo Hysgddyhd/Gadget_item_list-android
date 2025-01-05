@@ -43,6 +43,7 @@ import com.example.gadgetlist.ui.theme.GadgetListTheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import java.util.Locale
 import com.example.gadgetlist.ui.item.GoodDetails
@@ -96,11 +97,7 @@ fun GoodDetailList(
             value = goodDetails.name,
             onValueChange = { onValueChange(goodDetails.copy(name = it)) },
             label = { Text(stringResource(R.string.item_name_req)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Next),
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
@@ -109,13 +106,9 @@ fun GoodDetailList(
         OutlinedTextField(
             value = goodDetails.price,
             onValueChange = { onValueChange(goodDetails.copy(price = it)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Next),
             label = { Text(stringResource(R.string.item_price_req)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
+             
             leadingIcon = { Text(Currency.getInstance(Locale.getDefault()).symbol) },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
@@ -124,13 +117,9 @@ fun GoodDetailList(
         OutlinedTextField(
             value = goodDetails.quantity,
             onValueChange = { onValueChange(goodDetails.copy(quantity = it)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Next),
             label = { Text(stringResource(R.string.quantity_req)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
+             
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
@@ -139,11 +128,7 @@ fun GoodDetailList(
             value = goodDetails.description,
             onValueChange = { onValueChange(goodDetails.copy(description = it)) },
             label = { Text(stringResource(R.string.description_req)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done),
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
 

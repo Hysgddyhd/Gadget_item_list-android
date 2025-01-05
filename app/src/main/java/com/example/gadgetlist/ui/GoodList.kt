@@ -1,5 +1,6 @@
 package com.example.gadgetlist.ui
 
+import android.text.Layout
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -21,6 +22,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.lazy.items
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.gadgetlist.ui.theme.GadgetListTheme
 
@@ -67,6 +69,12 @@ private fun GadgetCard(
                 Text(
                     text = good.price.toString(),
                     style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = good.quantity.toString(),
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier=Modifier.align(Alignment.Bottom)
+
                 )
             }
             Text(

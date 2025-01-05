@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Log.d("lifecycle", "create in main Activity before call home screen")
 
-                    val navController: NavHostController = rememberNavController()
+                //    val navController: NavHostController = rememberNavController()
                     InventoryApp()
                     Log.d("lifecycle", "create in main Activity after" +
                             " call home screen")

@@ -2,6 +2,7 @@ package com.example.gadgetlist.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -72,7 +73,7 @@ fun InventoryNavHost(
                 type = NavType.IntType
             })
         ) {
-            GoodEditScreen(navigateBack = { navController.popBackStack() },
+            GoodEditScreen(navigateBack = { navController.popBackStack(ShopScreen.lobby.name,inclusive = false) },
                 onNavigateUp = { navController.navigateUp() })
         }
         composable(route= GoodTradeDestination.routeWithArgs,
@@ -91,6 +92,8 @@ fun InventoryNavHost(
 
     }
 }
+
+
 
 @Composable
 fun InventoryApp(navController: NavHostController = rememberNavController()) {

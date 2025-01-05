@@ -1,9 +1,12 @@
 package com.example.gadgetlist.ui.item
 
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.gadgetlist.R
 import com.example.gadgetlist.data.Good
 import com.example.gadgetlist.data.GoodsRepository
 import java.text.NumberFormat
@@ -55,7 +58,7 @@ data class GoodDetails(
     val price: String = "",
     val quantity: String = "",
     val description:String = "",
-    val imageResourceId:Int= 2130968589
+    val imageResourceId:Int= R.drawable.no_photo
 )
 
 /**

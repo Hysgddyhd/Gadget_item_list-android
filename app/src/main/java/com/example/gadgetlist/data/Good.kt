@@ -20,7 +20,7 @@ data class Good(
     @ColumnInfo(name = "desc")
     val description:String,
     @ColumnInfo(name = "image")
-    val imageResourceId: Int = Resources.getSystem().getIdentifier("no_photo", "drawable", "android")
+    val imageResourceId: Int = R.drawable.iphone_2
 )
 
 val sample : List<Good> = listOf(

@@ -1,7 +1,10 @@
 package com.example.gadgetlist.ui.item
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -43,8 +46,12 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.remember
+import androidx.compose.ui.text.font.FontWeight
 
 
 object GoodTradeDestination : NavigationDestination {
@@ -61,23 +68,25 @@ fun GoodTradeScreen (
     onNavigateUp: () -> Unit,
     navigateToEditEntry: (Int)->Unit,
     canNavigateBack: Boolean = true,
+
     viewModel: GoodTradeViewModel = viewModel(factory = AppViewModelProvider.Factory),
 
     ){
+    val uiState = viewModel.goodUiState.collectAsState()
     //check item status
-        viewModel.checkItemStatus()
+
         val coroutine = rememberCoroutineScope()
     Scaffold(
         topBar = {
             GadgetTopAppBar(
-                title = stringResource(GoodEditDestination.titleRes),
+                title = stringResource(GoodTradeDestination.titleRes),
                 canNavigateBack = true,
                 navigateUp = onNavigateUp
             )
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = {navigateToEditEntry(viewModel.goodUiState.goodDetails.id)},
+                onClick = {navigateToEditEntry(viewModel.goodUiState.value.goodDetails.id)},
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier
                     .padding(
@@ -94,35 +103,28 @@ fun GoodTradeScreen (
         modifier = Modifier
     ) { innerPadding ->
         GoodTradeBody(
-            goodUiState = viewModel.goodUiState,
-            onItemValueChange = viewModel::updateUiState,
+            goodUiState = uiState.value,
             onSellClick = {
-                coroutine.launch {
                     viewModel.sellItem()
-                }
             },
-            isButtonEnable = viewModel.isItemAvailable,
-            onDelete = {
-
-            },
+            isItemSellable = !uiState.value.outOfStock,
             modifier = Modifier
                 .padding(
                     start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
                     end = innerPadding.calculateEndPadding(LocalLayoutDirection.current),
                     top = innerPadding.calculateTopPadding()
                 )
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(rememberScrollState()),
+
         )
     }
 }
 
 @Composable
 fun GoodTradeBody(
-    goodUiState: GoodUiState,
-    onItemValueChange: (GoodDetails) -> Unit,
+    isItemSellable:Boolean,
+    goodUiState: GoodTradeUiState,
     onSellClick: () -> Unit,
-    onDelete: ()-> Unit,
-    isButtonEnable:Boolean,
     modifier: Modifier = Modifier
 ){
 
@@ -130,14 +132,15 @@ fun GoodTradeBody(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large)),
         modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium))
         ) {
-        GoodDetailList(
-            goodDetails = goodUiState.goodDetails,
-            onValueChange = onItemValueChange,
-            enabled = false
+        
+         GoodDetailsCard(
+            good = goodUiState.goodDetails.toGood(),
+            modifier = Modifier.fillMaxWidth()
         )
+        
         Button(
             onClick = onSellClick,
-            enabled = isButtonEnable,
+            enabled = isItemSellable,
             shape = MaterialTheme.shapes.small,
             modifier = Modifier.fillMaxWidth()
         ) {
@@ -147,6 +150,70 @@ fun GoodTradeBody(
     }
 
 }
+
+
+@Composable
+fun GoodDetailsCard(
+    good: Good, modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier, colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(dimensionResource(id = R.dimen.padding_medium)),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
+        ) {
+            ItemDetailsRow(
+                labelResID = R.string.good,
+                itemDetail = good.name,
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(
+                        id = R.dimen
+                            .padding_medium
+                    )
+                )
+            )
+            ItemDetailsRow(
+                labelResID = R.string.quantity_in_stock,
+                itemDetail = good.quantity.toString(),
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(
+                        id = R.dimen
+                            .padding_medium
+                    )
+                )
+            )
+            ItemDetailsRow(
+                labelResID = R.string.price,
+                itemDetail = good.formatedPrice(),
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(
+                        id = R.dimen
+                            .padding_medium
+                    )
+                )
+            )
+        }
+
+    }
+}
+
+@Composable
+private fun ItemDetailsRow(
+    @StringRes labelResID: Int, itemDetail: String, modifier: Modifier = Modifier
+) {
+    Row(modifier = modifier) {
+        Text(stringResource(labelResID))
+        Spacer(modifier = Modifier.weight(1f))
+        Text(text = itemDetail, fontWeight = FontWeight.Bold)
+    }
+}
+
 
 @Preview
 @Composable
