@@ -100,9 +100,6 @@ fun HomeScreen(
             verticalArrangement = Arrangement.Center
         ) {
 
-            TopRow(
-                modifier = Modifier
-                    )
             Spacer(Modifier.height(24.dp))
             //Title
             Text(

@@ -60,13 +60,7 @@ fun GoodEntryScreen(
 ) {
     val coroutineScope = rememberCoroutineScope()
     Scaffold(
-        topBar = {
-            GadgetTopAppBar(
-                title = "Add New Item",
-                canNavigateBack = canNavigateBack,
-                navigateUp = onNavigateUp
-            )
-        }
+
     ) { innerPadding ->
         GoodEntryBody(
             goodUiState = viewModel.goodUiState,

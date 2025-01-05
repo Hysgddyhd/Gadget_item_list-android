@@ -54,13 +54,6 @@ fun GoodEditScreen (
     ){
         val coroutine = rememberCoroutineScope()
     Scaffold(
-        topBar = {
-            GadgetTopAppBar(
-                title = stringResource(GoodEditDestination.titleRes),
-                canNavigateBack = true,
-                navigateUp = onNavigateUp
-            )
-        },
         modifier = Modifier
     ) { innerPadding ->
         GoodEditBody(
