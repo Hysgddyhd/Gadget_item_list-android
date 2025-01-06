@@ -1,5 +1,6 @@
 package com.example.gadgetlist
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -30,8 +31,10 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Log.d("lifecycle", "create in main Activity before call home screen")
 
+
                 //    val navController: NavHostController = rememberNavController()
                     InventoryApp()
+
                     Log.d("lifecycle", "create in main Activity after" +
                             " call home screen")
 

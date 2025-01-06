@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -16,7 +15,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -25,23 +23,23 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.gadgetlist.R
-import com.example.gadgetlist.data.Good
 import com.example.gadgetlist.ui.GadgetTopAppBar
-import com.example.gadgetlist.ui.TopRow
-import com.example.gadgetlist.ui.search.SearchResult
 import com.example.gadgetlist.ui.home.HomeScreen
 import com.example.gadgetlist.ui.item.GoodEditDestination
 import com.example.gadgetlist.ui.item.GoodEditScreen
 import com.example.gadgetlist.ui.item.GoodEntryScreen
 import com.example.gadgetlist.ui.item.GoodTradeDestination
 import com.example.gadgetlist.ui.item.GoodTradeScreen
+import com.example.gadgetlist.ui.profile.PersonLoginScreen
 import com.example.gadgetlist.ui.profile.PersonProfileScreen
+import com.example.gadgetlist.ui.search.SearchResult
 
 enum class ShopScreen {
     lobby,
     addItem,
     search,
     profile,
+    login,
     menu,
 }
 
@@ -91,10 +89,10 @@ fun InventoryNavHost(
                     selected = false,
                     onClick = {
                         navController.popBackStack(
-                        ShopScreen.profile.name,
+                        ShopScreen.login.name,
                         inclusive = false
                         )
-                        navController.navigate(ShopScreen.profile.name)
+                        navController.navigate(ShopScreen.login.name)
                     },
                     icon = {
                         Icon(
@@ -171,9 +169,19 @@ fun InventoryNavHost(
                     navigateToEditEntry = { navController.navigate("${GoodEditDestination.route}/${it}") }
                 )
             }
+            composable(route = ShopScreen.login.name) {
+                PersonLoginScreen(
+                    modifier=modifier,
+                    isLoginSuccess = {navController.navigate(ShopScreen.profile.name)}
+                )
+            }
             composable(route = ShopScreen.profile.name) {
                 PersonProfileScreen(
-                    modifier = modifier
+                    modifier=modifier,
+                    isLogOut = {
+                        navController.navigate(ShopScreen.login.name)
+                    },
+
                 )
             }
             composable(route = ShopScreen.menu.name) {}

@@ -4,6 +4,9 @@ import android.app.Application
 import android.util.Log
 import com.example.gadgetlist.data.AppContainer
 import com.example.gadgetlist.data.AppDataContainer
+import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.AuthCredential
+import com.google.firebase.auth.FirebaseAuth
 
 class GadgetListApplication : Application() {
 
@@ -14,6 +17,12 @@ class GadgetListApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        container = AppDataContainer(this)
+        val firebaseProject = FirebaseApp.initializeApp(this)
+        val auth = FirebaseAuth.getInstance()
+        container = AppDataContainer(this,auth)
+
+
+
+
     }
 }

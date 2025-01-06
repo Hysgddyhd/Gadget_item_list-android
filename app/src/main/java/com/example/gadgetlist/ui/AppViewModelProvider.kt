@@ -10,6 +10,8 @@ import com.example.gadgetlist.ui.home.HomeViewModel
 import com.example.gadgetlist.ui.item.GoodEditViewModel
 import com.example.gadgetlist.ui.item.GoodEntryViewModel
 import com.example.gadgetlist.ui.item.GoodTradeViewModel
+import com.example.gadgetlist.ui.profile.PersonProfileScreen
+import com.example.gadgetlist.ui.profile.PersonProfileViewModel
 import com.example.gadgetlist.ui.search.GoodSearchViewModel
 
 object AppViewModelProvider {
@@ -47,6 +49,14 @@ object AppViewModelProvider {
             GoodTradeViewModel(
                 this.createSavedStateHandle(),
                 inventoryApplication().container.goodsRepository
+            )
+        }
+
+        //initial profile view model
+        initializer {
+            PersonProfileViewModel(
+                this.createSavedStateHandle(),
+                inventoryApplication().container.auth
             )
         }
     }
