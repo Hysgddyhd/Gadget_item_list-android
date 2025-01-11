@@ -1,14 +1,16 @@
 package com.example.gadgetlist.ui.profile
 
+
+import androidx.lifecycle.SavedStateHandle
+import com.google.firebase.auth.FirebaseAuth
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.AuthCredential
-import com.google.firebase.auth.FirebaseAuth
+
 
 class PersonProfileViewModel(
     savedStateHandle: SavedStateHandle,
@@ -16,7 +18,6 @@ class PersonProfileViewModel(
     ): ViewModel(){
 var personProfileUiState by mutableStateOf(  PersonProfileUiState(
     auth=auth,
-    isSuccess = auth.currentUser!=null
 ))
         private set
     fun updateEmail(email: String) {
@@ -64,9 +65,6 @@ var personProfileUiState by mutableStateOf(  PersonProfileUiState(
                         // User is signed in
                         val user = personProfileUiState.auth.currentUser
                         Log.d("Login", "Login success")
-                        personProfileUiState = personProfileUiState.copy(
-                            isSuccess = true
-                        )
                         // ...
                     } else {
                         // User is not signed in
@@ -81,9 +79,8 @@ var personProfileUiState by mutableStateOf(  PersonProfileUiState(
 
     fun logOut(){
         personProfileUiState.auth.signOut()
-        personProfileUiState=personProfileUiState.copy(isSuccess = false)
-
     }
+
     // Password reset
         fun resetPassword(email: String) {
            personProfileUiState.auth.sendPasswordResetEmail(email)
@@ -122,6 +119,6 @@ data class PersonProfileUiState(
     val email: String="",
     val password: String="",
     val reenter_pass:String ="",
-    var isSuccess : Boolean
 
 )
+

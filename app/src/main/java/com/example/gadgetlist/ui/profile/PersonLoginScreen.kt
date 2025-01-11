@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.gadgetlist.R
@@ -33,7 +34,8 @@ fun PersonLoginScreen(
     Column(
         modifier= modifier
             .fillMaxSize()
-            .padding(12.dp),
+            .padding(12.dp)
+            ,
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
 
@@ -48,6 +50,7 @@ fun PersonLoginScreen(
             onValueChange = {
                 personProfileViewModel.updateEmail(it)
             },
+            singleLine = true,
             label = {
                 Text("Email")
             }
@@ -57,6 +60,8 @@ fun PersonLoginScreen(
             onValueChange = {
                 personProfileViewModel.updatePassword(it)
             },
+            singleLine = true,
+            visualTransformation = PasswordVisualTransformation(),
             label = {
                 Text("Password")
             }
@@ -80,7 +85,7 @@ fun PersonLoginScreen(
 
         }
     }
-    if(personProfileUiState.isSuccess)
+    if(personProfileUiState.auth.currentUser!=null)
         isLoginSuccess()
 
 }

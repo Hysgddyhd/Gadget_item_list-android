@@ -25,6 +25,7 @@ fun PersonProfileScreen(
     personProfileViewModel: PersonProfileViewModel =viewModel(factory = AppViewModelProvider.Factory)
 ) {
     val personProfileUiState = personProfileViewModel.personProfileUiState
+    val email:String = personProfileUiState.auth.currentUser?.email.toString()
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -39,8 +40,7 @@ fun PersonProfileScreen(
         )
 
          Text(
-            text = personProfileUiState.auth.currentUser?.email.toString(),
-
+            text = if(!email.equals("")) email else "user_21" ,
 
         )
 
