@@ -107,9 +107,9 @@ fun GoodDetailList(
             value = goodDetails.price,
             onValueChange = { onValueChange(goodDetails.copy(price = it)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Next),
-            label = { Text(stringResource(R.string.item_price_req)) },
+            label = { Text(stringResource(R.string.item_price_req)+"(RM)") },
              
-            leadingIcon = { Text(Currency.getInstance(Locale.getDefault()).symbol) },
+
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true

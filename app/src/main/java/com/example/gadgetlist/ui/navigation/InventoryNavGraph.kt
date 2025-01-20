@@ -51,7 +51,10 @@ fun InventoryNavHost(
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
 //use currentScreen here will cause error , because some screens don't have name
-    val currentScreen = "Gadget Store"
+    val currentScreen = "Lab 6"
+    val isSelectProfile:Boolean
+    = navController.currentDestination?.route.equals(ShopScreen.profile.name)
+            ||navController.currentDestination?.route.equals(ShopScreen.login.name)
     Scaffold(
         topBar = {
             GadgetTopAppBar(
@@ -64,45 +67,7 @@ fun InventoryNavHost(
                 }
             )
                  },
-        bottomBar = {
-            NavigationBar(
-                tonalElevation = 5.dp
-            ) {
-                NavigationBarItem(
-                    selected = false,
-                    onClick = {
-                        navController.popBackStack(
-                        ShopScreen.lobby.name,
-                        inclusive = false,
-                        )
-                        navController.navigate(ShopScreen.lobby.name)
 
-                    },
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Default.Home,
-                            contentDescription = stringResource(R.string.item_edit_title)
-                        )
-                    },
-                )
-                NavigationBarItem(
-                    selected = false,
-                    onClick = {
-                        navController.popBackStack(
-                        ShopScreen.login.name,
-                        inclusive = false
-                        )
-                        navController.navigate(ShopScreen.login.name)
-                    },
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Default.Person,
-                            contentDescription = stringResource(R.string.item_edit_title)
-                        )
-                    },
-                )
-            }
-        }
 
     ){innerPadding ->
         NavHost(

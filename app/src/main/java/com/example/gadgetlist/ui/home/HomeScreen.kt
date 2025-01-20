@@ -103,19 +103,15 @@ fun HomeScreen(
             Spacer(Modifier.height(24.dp))
             //Title
             Text(
-                text = "Welcome to GadgetList",
+                text = "Welcome to Lab 6",
                 fontSize = 28.sp,
                 textAlign = TextAlign.Center
             )
             //searchbar
-            itemSearchBar(
-                onClickAction =navigateToSearchResult,
-                onValueChange = { input=it  },
-                input = input
-            )
+
             //recommendation
                 Text(
-                    text = "Hottest Deal:",
+                    text = "Database:",
                     fontSize = 18.sp,
                     modifier = Modifier
                         .align(Alignment.Start)

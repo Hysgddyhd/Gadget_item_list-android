@@ -69,7 +69,7 @@ var personProfileUiState by mutableStateOf(  PersonProfileUiState(
                     } else {
                         // User is not signed in
                         val error = task.exception
-                        Log.d("Login", "Login failed")
+                        Log.d("Login", "Lo gin failed")
 
                         // ...
                     }
