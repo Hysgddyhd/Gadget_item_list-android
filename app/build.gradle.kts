@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
+    id("com.google.firebase.firebase-perf")
 }
 
 android {
@@ -44,7 +46,9 @@ android {
 dependencies {
 
     //bottom navigation bar
-        implementation("androidx.fragment:fragment-ktx:1.8.5")
+    implementation("androidx.compose.material:material")
+    implementation("com.google.android.material:material:1.10.0")
+    implementation("androidx.compose.material:material-icons-extended:1.5.3")
     //room dependency
     ksp("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-runtime:2.6.1")
