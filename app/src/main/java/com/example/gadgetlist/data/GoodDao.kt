@@ -40,4 +40,17 @@ interface GoodDao {
             "where id = :id "
             )
     fun getGoodById(id:Int) : Flow<Good>
+
+    //create user
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun createUser(user: User)
+
+    //update user info
+    @Update
+    suspend fun updateUser(user: User)
+
+    //get user info
+    @Query("select * from users where uid =:uid")
+    fun getUserById(uid:String) :Flow<User>
+
 }

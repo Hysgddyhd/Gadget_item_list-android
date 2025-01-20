@@ -40,5 +40,14 @@ interface GoodsRepository {
      * Update item in the data source
      */
     suspend fun updateGood(good: Good)
+
+    //create user
+    suspend fun createUser(user: User)
+    //update user info
+    suspend fun updateUser(user: User)
+    //get user info
+    fun getUserById(uid:String): Flow<User>
+
+
 }
 

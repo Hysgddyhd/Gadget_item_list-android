@@ -51,6 +51,11 @@ class OfflineGoodsRepository(private val goodDao: GoodDao): GoodsRepository {
 
     override suspend fun updateGood(good: Good) =goodDao.updateGood(good)
 
+    override suspend fun createUser(user: User) =goodDao.createUser(user)
+
+    override suspend fun updateUser(user: User) =goodDao.updateUser(user)
+
+    override fun getUserById(uid: String) = goodDao.getUserById(uid)
 
 
 }

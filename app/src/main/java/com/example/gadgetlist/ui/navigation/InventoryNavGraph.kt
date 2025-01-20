@@ -2,8 +2,8 @@ package com.example.gadgetlist.ui.navigation
 
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -12,15 +12,12 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -29,7 +26,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.gadgetlist.R
 import com.example.gadgetlist.ui.GadgetTopAppBar
 import com.example.gadgetlist.ui.home.HomeScreen
 import com.example.gadgetlist.ui.item.GoodEditDestination
@@ -37,8 +33,9 @@ import com.example.gadgetlist.ui.item.GoodEditScreen
 import com.example.gadgetlist.ui.item.GoodEntryScreen
 import com.example.gadgetlist.ui.item.GoodTradeDestination
 import com.example.gadgetlist.ui.item.GoodTradeScreen
-import com.example.gadgetlist.ui.profile.PersonLoginScreen
+import com.example.gadgetlist.ui.login.PersonLoginScreen
 import com.example.gadgetlist.ui.profile.PersonProfileScreen
+import com.example.gadgetlist.ui.login.PersonSignUpScreen
 import com.example.gadgetlist.ui.search.SearchResult
 
 enum class ShopScreen {
@@ -47,6 +44,7 @@ enum class ShopScreen {
     search,
     profile,
     login,
+    signup,
     menu,
 }
 
@@ -58,7 +56,7 @@ fun InventoryNavHost(
 ) {
     val backStackEntry by navController.currentBackStackEntryAsState()
 //use currentScreen here will cause error , because some screens don't have name
-    val currentScreen = "Gadget Store"
+    val currentScreen = navController.currentDestination?.route
     val topLevelRoutes = listOf(
         TopLevelRoute("Main", ShopScreen.lobby.name, Icons.Filled.Home),
         TopLevelRoute("Search", ShopScreen.search.name,Icons.Filled.Search),
@@ -69,7 +67,7 @@ fun InventoryNavHost(
             .heightIn(max=858.dp),
                 topBar = {
             GadgetTopAppBar(
-                title = currentScreen,
+                title = currentScreen ?:"Gadget Store",
                 canNavigateBack = navController.previousBackStackEntry != null,
                 modifier = modifier,
                 scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
@@ -79,11 +77,11 @@ fun InventoryNavHost(
             )
                  },
         bottomBar = {
-            BottomNavigation {
+            NavigationBar {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
                 topLevelRoutes.forEach { topLevelRoute ->
-                    BottomNavigationItem(
+                    NavigationBarItem(
                         icon = {
                             Icon(
                                 topLevelRoute.icon,
@@ -91,7 +89,7 @@ fun InventoryNavHost(
                             )
                         },
                         label = { Text(topLevelRoute.name) },
-                        selected = false,
+                        selected = navBackStackEntry?.destination?.route == topLevelRoute.route,
                         // selected = currentDestination?.hierarchy?.any { it.hasRoute(
                         //      topLevelRoute.name::class,
                         //  ) } == true,
@@ -111,7 +109,6 @@ fun InventoryNavHost(
                             }
                         },
                         modifier=Modifier
-                            .padding(36.dp)
                     )
                 }
             }
@@ -185,7 +182,13 @@ fun InventoryNavHost(
             composable(route = ShopScreen.login.name) {
                 PersonLoginScreen(
                     modifier=modifier,
+                    toSignUp = { navController.navigate(ShopScreen.signup.name) },
                     isLoginSuccess = {navController.navigate(ShopScreen.profile.name)}
+                )
+            }
+            composable(route=ShopScreen.signup.name){
+                PersonSignUpScreen(
+                    toSign ={ navController.navigate(ShopScreen.login.name) }
                 )
             }
             composable(route = ShopScreen.profile.name) {
