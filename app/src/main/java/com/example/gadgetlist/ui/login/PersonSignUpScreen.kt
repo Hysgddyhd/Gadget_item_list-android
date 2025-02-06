@@ -227,7 +227,7 @@ fun PersonSignUpScreen(
                 ) {
                     viewModel.signUp(toSign)
                     coroutineScope.launch {
-                        snackbarHostState.showSnackbar("Created User")
+                        snackbarHostState.showSnackbar("User created")
                         viewModel.saveUser()
 
                     }

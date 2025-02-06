@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import com.example.gadgetlist.data.GoodsRepository
 import com.example.gadgetlist.data.User
 import com.google.firebase.auth.AuthCredential
+import kotlin.math.log
 
 
 class PersonProfileViewModel(
@@ -72,10 +73,11 @@ var personProfileUiState by mutableStateOf(  PersonProfileUiState(
     }
 
 
-    fun login() {
+    fun login():Boolean {
         if (personProfileUiState.email.equals("") || personProfileUiState.password.equals("")) {
-
+            return false
         } else {
+                var login:Boolean=false
             personProfileUiState.auth.signInWithEmailAndPassword(
                 personProfileUiState.email,
                 personProfileUiState.password
@@ -85,15 +87,18 @@ var personProfileUiState by mutableStateOf(  PersonProfileUiState(
                         // User is signed in
                         val user = personProfileUiState.auth.currentUser
                         Log.d("Login", "Login success")
+                        login=true
                         // ...
                     } else {
                         // User is not signed in
                         val error = task.exception
                         Log.d("Login", "Login failed")
 
+
                         // ...
                     }
                 }
+            return login
         }
     }
 

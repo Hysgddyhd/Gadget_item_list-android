@@ -36,6 +36,7 @@ import com.example.gadgetlist.ui.item.GoodTradeScreen
 import com.example.gadgetlist.ui.login.PersonLoginScreen
 import com.example.gadgetlist.ui.profile.PersonProfileScreen
 import com.example.gadgetlist.ui.login.PersonSignUpScreen
+import com.example.gadgetlist.ui.profile.PersonDetailScreen
 import com.example.gadgetlist.ui.search.SearchResult
 
 enum class ShopScreen {
@@ -46,6 +47,7 @@ enum class ShopScreen {
     login,
     signup,
     menu,
+    user_detail,
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -197,10 +199,17 @@ fun InventoryNavHost(
                     isLogOut = {
                         navController.navigate(ShopScreen.login.name)
                     },
-
+                    toDetail = {navController.navigate(ShopScreen.user_detail.name)}
                 )
             }
             composable(route = ShopScreen.menu.name) {}
+            composable(route = ShopScreen.user_detail.name) {
+                PersonDetailScreen(
+                    modifier=modifier,
+                    toProfile = {navController.navigate(ShopScreen.profile.name)}
+                )
+            }
+
 
         }
     }
