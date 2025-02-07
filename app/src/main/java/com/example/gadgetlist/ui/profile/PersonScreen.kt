@@ -94,20 +94,8 @@ fun PersonProfileScreen(
             }
 
             Spacer(modifier = Modifier.height(30.dp))
-            TextField(
-                value = uiState.value.name,
-                onValueChange = {},
-                label = { Text(text = "Name") },
-                shape = RoundedCornerShape(1.dp),
-                trailingIcon = {
-                    Icons.Sharp.Person4
-                },
-                singleLine = true,
-                visualTransformation = VisualTransformation.None,
-                keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text),
-                keyboardActions = KeyboardActions(
-                    onNext = {}
-                ),
+            Text(
+                text = uiState.value.name,
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -115,7 +103,12 @@ fun PersonProfileScreen(
             Spacer(modifier = Modifier.height(30.dp))
 
             Button(
-                onClick = toDetail,
+                onClick = {
+                    coroutineScope.launch {
+                        personViewModel.resetProfile()
+                    }
+                    toDetail()
+                          },
             ) { Text("User Detail") }
 
             Spacer(modifier = Modifier.height(10.dp))

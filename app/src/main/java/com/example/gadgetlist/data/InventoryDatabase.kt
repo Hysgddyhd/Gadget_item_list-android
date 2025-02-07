@@ -6,7 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 //add user table
-@Database(entities = [Good::class,User::class], version = 2, exportSchema = true)
+@Database(entities = [Good::class,User::class], version = 3, exportSchema = true)
 abstract class InventoryDatabase : RoomDatabase() {
 
     abstract fun goodDao(): GoodDao
@@ -22,6 +22,7 @@ abstract class InventoryDatabase : RoomDatabase() {
                     context,
                     InventoryDatabase::class.java,
                     "item_database")
+                    .fallbackToDestructiveMigration()
                     //.createFromAsset("database/goods_start_example.db")
                     .build()
                     .also {

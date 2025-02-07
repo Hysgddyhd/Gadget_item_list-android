@@ -12,4 +12,5 @@ data class User(
     val email:String="",
     val address:String="",
     val phone:Int=0,
+    val sex:Boolean=false,
 )

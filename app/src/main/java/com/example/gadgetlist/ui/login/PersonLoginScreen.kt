@@ -99,8 +99,10 @@ fun PersonLoginScreen(
             ) {
                 Button(
                         onClick = {
+                            var success:Boolean=false
                             coroutineScope.launch {
-                                if (personProfileViewModel.login())
+                                launch { success= personProfileViewModel.login() }
+                                if (success)
                                     snackbarHostState.showSnackbar("Login Successfully")
                                 else
                                     snackbarHostState.showSnackbar("invaild email or password")

@@ -42,7 +42,7 @@ interface GoodDao {
     fun getGoodById(id:Int) : Flow<Good>
 
     //create user
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun createUser(user: User)
 
     //update user info

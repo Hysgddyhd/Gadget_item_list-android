@@ -85,13 +85,11 @@ var personProfileUiState by mutableStateOf(  PersonProfileUiState(
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         // User is signed in
-                        val user = personProfileUiState.auth.currentUser
                         Log.d("Login", "Login success")
                         login=true
                         // ...
                     } else {
                         // User is not signed in
-                        val error = task.exception
                         Log.d("Login", "Login failed")
 
 
